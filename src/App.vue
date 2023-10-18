@@ -2,18 +2,28 @@
 
 </style>
 <template>
-  <button @click="handleHome">切换到首页</button>
-  <button @click="handleCenter">切换到个人中心页面</button>
+  <Suspense>
+    <template #default>
+      <div>
+        <button @click="handleHome">切换到首页</button>
+        <button @click="handleCenter">切换到个人中心页面</button>
+      </div>
+    </template>
+    <template #fallback>
+      <Loading/>
+    </template>
+  </Suspense>
   <AsyncHome v-if="isShowHome"/>
   <AsyncCenter v-if="!isShowHome"/>
 </template>
 <script setup lang="ts">
 import {defineAsyncComponent,ref} from "vue";
 import Loading from "./components/Loading/index.vue"
+import Loading2 from "./components/Loading/index.vue"
 
 const AsyncHome = defineAsyncComponent({
   loader: () => import("./components/Home/index.vue"),
-  loadingComponent:Loading,
+  loadingComponent:Loading2,
   delay:200,
 })
 
@@ -25,7 +35,7 @@ const AsyncCenter = defineAsyncComponent({
     })
     return import("./components/Center/index.vue")
   },
-  loadingComponent:Loading,
+  loadingComponent:Loading2,
   delay:200,
 })
 

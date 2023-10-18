@@ -3,7 +3,7 @@
 
 <template>
   <div>
-    (Loading)加载中
+    (Loading2)加载中
   </div>
 </template>
 
